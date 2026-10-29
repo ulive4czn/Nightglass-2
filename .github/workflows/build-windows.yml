@@ -1,0 +1,63 @@
+
+name: Build Nightglass for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download repository files
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Find Nightglass project
+        shell: pwsh
+        run: |
+          if (Test-Path "package.json") {
+            Write-Host "Project found in repository root"
+          } elseif (Test-Path "NightglassBrowser/package.json") {
+            Set-Location "NightglassBrowser"
+            "PROJECT_DIR=NightglassBrowser" >> $env:GITHUB_ENV
+            Write-Host "Project found in NightglassBrowser folder"
+          } else {
+            Write-Error "Could not find package.json. Check where you uploaded the project files."
+            exit 1
+          }
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          if ("${{ env.PROJECT_DIR }}" -ne "") {
+            Set-Location "${{ env.PROJECT_DIR }}"
+          }
+          npm install
+
+      - name: Build Windows executable
+        shell: pwsh
+        run: |
+          if ("${{ env.PROJECT_DIR }}" -ne "") {
+            Set-Location "${{ env.PROJECT_DIR }}"
+          }
+          npm run dist:win
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nightglass-Windows-EXE
+          path: |
+            dist/*.exe
+            NightglassBrowser/dist/*.exe
+          if-no-files-found: error
