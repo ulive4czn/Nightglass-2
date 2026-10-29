@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;">
+  <title>Nightglass Browser</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="chrome">
+    <div class="brand-row">
+      <div class="brand-mark">N</div>
+      <div class="brand-name">NIGHTGLASS <span>PRIVATE BROWSER</span></div>
+      <div class="privacy-pill"><i></i> PRIVATE SESSION</div>
+      <button class="text-button" id="clearSession" title="Clear cookies, storage and cache">Clear session</button>
+    </div>
+    <div class="tabs-row">
+      <div id="tabs" class="tabs"></div>
+      <button class="new-tab" id="newTab" title="New tab">＋</button>
+    </div>
+    <div class="toolbar">
+      <button class="tool" id="back" aria-label="Back" title="Back">←</button>
+      <button class="tool" id="forward" aria-label="Forward" title="Forward">→</button>
+      <button class="tool" id="reload" aria-label="Reload" title="Reload">↻</button>
+      <button class="tool home" id="home" aria-label="Home" title="Home">⌂</button>
+      <form id="addressForm">
+        <span class="lock" id="securityIcon">◇</span>
+        <input id="address" autocomplete="off" spellcheck="false" placeholder="Search privately or enter a web address">
+        <button type="submit" class="go" aria-label="Go">↵</button>
+      </form>
+      <button class="tool menu" id="privacyInfo" title="Privacy information">ⓘ</button>
+    </div>
+  </header>
+  <main class="status-strip">
+    <span class="status-dot"></span>
+    <span id="statusText">Your browsing data is kept in a temporary app session.</span>
+    <span class="right-status" id="connectionStatus">READY</span>
+  </main>
+  <aside class="privacy-panel" id="privacyPanel" hidden>
+    <button class="panel-close" id="closePanel">×</button>
+    <h2>Privacy at a glance</h2>
+    <p><b>Temporary session</b> Cookies, site storage and cache use an in-memory browser profile and are cleared when the app fully closes.</p>
+    <p><b>Basic tracker filter</b> A built-in list blocks requests to some known advertising and analytics domains. It is not a complete blocker.</p>
+    <p><b>Permissions denied by default</b> Camera, microphone, location and notifications are denied by this starter build.</p>
+    <p class="caution">This does not hide your IP address or make you anonymous. Websites, your ISP, employer/school network, and DNS provider may still observe connections. Use HTTPS, keep Windows updated, and avoid installing unknown extensions or downloading untrusted files.</p>
+  </aside>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "nightglass-private-browser",
+  "version": "1.0.0",
+  "description": "A privacy-minded desktop browser starter for Windows",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^36.3.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.nightglass.browser",
+    "productName": "Nightglass Browser",
+    "asar": true,
+    "files": ["main.js", "preload.js", "app/**/*", "package.json"],
+    "win": { "target": ["portable"] }
+  }
+}
